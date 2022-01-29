@@ -4,7 +4,7 @@
 
 <?= $this->include('components/alerts') ?>
 <h6 class="text-lg font-medium mb-6">
-    Welcome, <?= session()->user->name ?>
+    Hai, <?= session()->user->name ?>
 </h6>
 
 <?= $this->endSection() ?>
