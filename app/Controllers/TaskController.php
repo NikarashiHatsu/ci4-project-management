@@ -98,7 +98,7 @@ class TaskController extends ResourceController
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Berhasil menambah tugas.');
+        return redirect()->back()->with('success', 'Berhasil mengubah tugas.');
     }
 
     /**
@@ -114,6 +114,6 @@ class TaskController extends ResourceController
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Berhasil menghapus projek.');
+        return redirect()->back()->with('success', 'Berhasil menghapus tugas.');
     }
 }

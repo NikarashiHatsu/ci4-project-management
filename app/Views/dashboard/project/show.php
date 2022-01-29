@@ -22,6 +22,15 @@
         <h6 class="font-semibold">
             List Tugas:
         </h6>
+        <ol class="list-disc">
+            <?php foreach($tasks as $task): ?>
+                <li class="ml-4 mt-2">
+                    <a href="<?= base_url('/task/edit/' . $task->id) ?>" class="badge badge-info">
+                        <?= $task->name ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ol>
     </div>
 </div>
 

@@ -20,7 +20,6 @@
 <div class="card bg-base-100 border">
     <div class="card-body">
         <form action="<?= base_url('/task/update/' . $task->id) ?>" method="post">
-            <input type="hidden" name="status" value="Belum selesai" />
             <div class="grid grid-cols-12 grid-flow-row gap-6">
                 <div class="col-span-12 sm:col-span-6 md:col-span-4 form-control">
                     <label for="project_id" class="label">
@@ -43,6 +42,15 @@
                         <span class="label-text">Nama Tugas</span>
                     </label>
                     <input type="text" name="name" id="name " class="input input-bordered" value="<?= $task->name ?>" required />
+                </div>
+                <div class="col-span-12 sm:col-span-6 md:col-span-4 form-control">
+                    <label for="status" class="label">
+                        <span class="label-text">Status Tugas</span>
+                    </label>
+                    <select name="status" id="status" class="select select-bordered">
+                        <option value="Belum selesai">Belum selesai</option>
+                        <option value="Selesai">Selesai</option>
+                    </select>
                 </div>
                 <div class="col-span-12 form-control">
                     <label for="description" class="label">

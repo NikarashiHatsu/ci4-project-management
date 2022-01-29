@@ -3007,6 +3007,9 @@ html {
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
+.pl-2 {
+  padding-left: 0.5rem;
+}
 .text-center {
   text-align: center;
 }

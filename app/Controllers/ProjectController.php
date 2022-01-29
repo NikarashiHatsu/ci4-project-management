@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Project;
+use App\Models\Task;
 use CodeIgniter\RESTful\ResourceController;
 
 class ProjectController extends ResourceController
@@ -34,6 +35,7 @@ class ProjectController extends ResourceController
     {
         return view('dashboard/project/show', [
             'project' => $this->model->find($id),
+            'tasks' => (new Task())->where('project_id', $id)->findAll(),
         ]);
     }
 
