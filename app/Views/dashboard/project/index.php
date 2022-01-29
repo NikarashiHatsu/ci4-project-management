@@ -16,7 +16,7 @@
         </svg>
     </a>
 </div>
-<div class="card bg-base-100 border shadow">
+<div class="card bg-base-100 border">
     <div class="card-body">
         <table class="table table-compact table-zebra w-full">
             <thead>
@@ -33,7 +33,9 @@
                         <tr>
                             <td><?= $project->id ?></td>
                             <td><?= $project->name ?></td>
-                            <td>0</td>
+                            <td>
+                                <?= $project->task_count ?> tugas
+                            </td>
                             <td>
                                 <a href="<?= base_url('/project/' . $project->id) ?>" class="btn btn-sm btn-success">
                                     List Tugas

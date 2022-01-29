@@ -45,6 +45,11 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
         'controller' => 'ProjectController',
         'websafe' => true,
     ]);
+    $routes->presenter('task', [
+        'controller' => 'TaskController',
+        'websafe' => true,
+        'except' => 'show',
+    ]);
 });
 
 /*

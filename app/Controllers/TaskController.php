@@ -3,11 +3,12 @@
 namespace App\Controllers;
 
 use App\Models\Project;
+use App\Models\Task;
 use CodeIgniter\RESTful\ResourceController;
 
-class ProjectController extends ResourceController
+class TaskController extends ResourceController
 {
-    protected $modelName = Project::class;
+    protected $modelName = Task::class;
 
     /**
      * Return an array of resource objects, themselves in array format
@@ -16,24 +17,12 @@ class ProjectController extends ResourceController
      */
     public function index()
     {
-        $this->model->join('tasks', 'tasks.project_id = projects.id');
-        $this->model->select('projects.id, COUNT(tasks.id) AS task_count, projects.name');
-        $this->model->groupBy('projects.id');
+        $model = new Task();
+        $model->join('projects', 'projects.id = tasks.project_id');
+        $model->select('tasks.id, tasks.name, projects.id AS project_id, projects.name AS project_name, tasks.status, tasks.description');
 
-        return view('dashboard/project/index', [
-            'projects' => $this->model->findAll(),
-        ]);
-    }
-
-    /**
-     * Return the properties of a resource object
-     *
-     * @return mixed
-     */
-    public function show($id = null)
-    {
-        return view('dashboard/project/show', [
-            'project' => $this->model->find($id),
+        return view('dashboard/task/index', [
+            'tasks' => $model->findAll(),
         ]);
     }
 
@@ -44,7 +33,9 @@ class ProjectController extends ResourceController
      */
     public function new()
     {
-        return view('dashboard/project/new');
+        return view('dashboard/task/new', [
+            'projects' => (new Project)->findAll(),
+        ]);
     }
 
     /**
@@ -56,7 +47,10 @@ class ProjectController extends ResourceController
     {
         try {
             $this->model->insert($this->request->getPost([
+                'project_id',
                 'name',
+                'description',
+                'status',
             ]));
 
             if (count($this->model->errors()) > 0) {
@@ -66,7 +60,7 @@ class ProjectController extends ResourceController
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Berhasil menambah projek.');
+        return redirect()->back()->with('success', 'Berhasil menambah tugas.');
     }
 
     /**
@@ -76,8 +70,9 @@ class ProjectController extends ResourceController
      */
     public function edit($id = null)
     {
-        return view('/dashboard/project/edit', [
-            'project' => $this->model->find($id),
+        return view('dashboard/task/edit', [
+            'task' => $this->model->find($id),
+            'projects' => (new Project)->findAll(),
         ]);
     }
 
@@ -90,7 +85,10 @@ class ProjectController extends ResourceController
     {
         try {
             $this->model->update($id, $this->request->getPost([
+                'project_id',
                 'name',
+                'description',
+                'status',
             ]));
 
             if (count($this->model->errors()) > 0) {
@@ -100,7 +98,7 @@ class ProjectController extends ResourceController
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
         }
 
-        return redirect()->back()->with('success', 'Berhasil menambah projek.');
+        return redirect()->back()->with('success', 'Berhasil menambah tugas.');
     }
 
     /**
