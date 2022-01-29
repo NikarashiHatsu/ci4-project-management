@@ -1,9 +1,9 @@
 <?php if (session()->get('errors')): ?>
     <div class="alert alert-error flex flex-col items-start mb-4 text-sm">
-        <p class="mb-2">Errors occured: </p>
+        <p class="mb-2">Terjadi kesalahan: </p>
         <ul class="flex flex-col list-disc">
             <?php foreach (session()->get('errors') as $error): ?>
-                <li class="ml-4 mt-2"><?= $error ?></li>
+                <li class="ml-4 mt-0"><?= $error ?></li>
             <?php endforeach ?>
         </ul>
     </div>

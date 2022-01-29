@@ -39,8 +39,12 @@ $routes->get('/register', 'Auth\RegisterController::index');
 $routes->post('/register', 'Auth\RegisterController::register');
 $routes->post('/logout', 'Auth\LogoutController::logout');
 
-$routes->group('dashboard', ['filter' => 'auth'], function ($routes) {
-    $routes->get('/', 'DashboardController::index');
+$routes->group('', ['filter' => 'auth'], function($routes) {
+    $routes->get('/dashboard', 'DashboardController::index');
+    $routes->presenter('project', [
+        'controller' => 'ProjectController',
+        'websafe' => true,
+    ]);
 });
 
 /*
