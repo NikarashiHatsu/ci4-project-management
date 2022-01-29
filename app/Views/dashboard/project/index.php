@@ -18,48 +18,50 @@
 </div>
 <div class="card bg-base-100 border">
     <div class="card-body">
-        <table class="table table-compact table-zebra w-full">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Projek</th>
-                    <th>Banyak Tugas</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($projects) > 0): ?>
-                    <?php foreach($projects as $project): ?>
+        <div class="overflow-x-auto">
+            <table class="table table-compact table-zebra w-full">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama Projek</th>
+                        <th>Banyak Tugas</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (count($projects) > 0): ?>
+                        <?php foreach($projects as $project): ?>
+                            <tr>
+                                <td><?= $project->id ?></td>
+                                <td><?= $project->name ?></td>
+                                <td>
+                                    <?= (new \App\Models\Task)->where('project_id', $project->id)->countAllResults() ?>
+                                </td>
+                                <td>
+                                    <a href="<?= base_url('/project/' . $project->id) ?>" class="btn btn-sm btn-success">
+                                        List Tugas
+                                    </a>
+                                    <a href="<?= base_url('/project/edit/' . $project->id) ?>" class="btn btn-sm btn-info">
+                                        Edit
+                                    </a>
+                                    <form action="<?= base_url('/project/delete/' . $project->id) ?>" method="post" class="inline">
+                                        <button href="<?= base_url('/project/' . $project->id) ?>" class="btn btn-sm btn-error">
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
                         <tr>
-                            <td><?= $project->id ?></td>
-                            <td><?= $project->name ?></td>
-                            <td>
-                                <?= $project->task_count ?> tugas
-                            </td>
-                            <td>
-                                <a href="<?= base_url('/project/' . $project->id) ?>" class="btn btn-sm btn-success">
-                                    List Tugas
-                                </a>
-                                <a href="<?= base_url('/project/edit/' . $project->id) ?>" class="btn btn-sm btn-info">
-                                    Edit
-                                </a>
-                                <form action="<?= base_url('/project/delete/' . $project->id) ?>" method="post" class="inline">
-                                    <button href="<?= base_url('/project/' . $project->id) ?>" class="btn btn-sm btn-error">
-                                        Hapus
-                                    </button>
-                                </form>
+                            <td colspan="4">
+                                Belum ada data
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="4">
-                            Belum ada data
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

@@ -17,10 +17,6 @@ class ProjectController extends ResourceController
      */
     public function index()
     {
-        $this->model->join('tasks', 'tasks.project_id = projects.id');
-        $this->model->select('projects.id, COUNT(tasks.id) AS task_count, projects.name');
-        $this->model->groupBy('projects.id');
-
         return view('dashboard/project/index', [
             'projects' => $this->model->findAll(),
         ]);
